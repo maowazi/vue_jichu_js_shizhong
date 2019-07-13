@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>钟表</title>
+    <style>
+        #content{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            width: 326px;
+            height: 326px;
+            background: url(../img/表5.png) no-repeat center center;
+            background-size: 100% 100%;
+        }
+        .miao{
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 12px;
+            height: 262px;
+            background:url(../img/表5m.png) no-repeat 0px 0px;
+            /* animation: miao 60s linear infinite; */
+            z-index: 3;
+        }
+        .fen{
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 12px;
+            height: 248px;
+            background: url(../img/表5f.png) no-repeat 0px 0px;
+            /* animation: fen 3600s linear infinite; */
+            z-index: 2;
+        }
+        .xioashi{
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 16px;
+            height: 144px;
+            background:url(../img/表5s.png) no-repeat 0 0;
+            /* animation: xioashi 43200s linear infinite; */
+            z-index: 1;
+        }
+        @keyframes miao{
+            0%{
+                transform: rotateZ(0deg);
+            }
+            100%{
+                transform: rotateZ(360deg);
+            }
+        }
+        @keyframes fen{
+            0%{
+                transform: rotateZ(0deg);
+            }
+            100%{
+                transform: rotateZ(360deg);
+            }
+        }
+        @keyframes xioashi{
+            0%{
+                transform: rotateZ(0deg);
+            }
+            100%{
+                transform: rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="miao"></div>
+        <div class="fen"></div>
+        <div class="xioashi"></div>
+    </div>
+</body>
+<script>
+    var timer = 0;
+    var miao = 0;
+    var fen = 0;
+    var fenbi = 0;
+    var shi = 0;
+    var miaozhen = document.querySelector(".miao");
+    var fenzhen = document.querySelector(".fen");
+    var xioashizhen = document.querySelector(".xioashi");
+    setInterval(()=>{
+        timer = new Date();
+        miao = timer.getSeconds();
+        miao = miao*6;             //加90因为表是从12点开始算起,元素是从水平180度开始算起
+        fen = timer.getMinutes();
+        fenbi = fen/60;               //当前分钟占一小时的比例(为下面小时做计算)
+        fen = fen*6;
+        shi = timer.getHours();
+        fenbi = fenbi*30;             //分钟比例算出应该占小时(大格)的比例
+        shi = shi*30+fenbi;        //每小时走30度 加上起步的90度 加上当前分钟比占小时(大格)的比例
+        miaozhen.style.transform = `rotateZ(${miao}deg)`;
+        fenzhen.style.transform = `rotateZ(${fen}deg)`;
+        xioashizhen.style.transform = `rotateZ(${shi}deg)`;
+        
+    },1000);
+    //修改后没有加90 是因为把每个指针从水平改成了垂直方向
+</script>
+</html>

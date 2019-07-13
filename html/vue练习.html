@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue练习</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+   
+</head>
+<body>
+    <p id="p1">{{msg}}</p>
+    <div id="app2">
+        <span v-bind:title = "msg">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息!
+        </span>
+    </div>
+    <div id="app3">
+        <p v-if = "seen">现在你看到我了</p>
+    </div>
+    <div id="app4">
+        <ol>
+                                            <!-- todo是传入数组的每一个元素,todos是传进来的参数,text是键,最后得到的是值 -->
+            <li v-for = "todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+    </div>
+    <div id="app5">
+        <p>{{msg}}</p>
+        <button v-on:click= "reverseMessage">逆转消息</button><!--v-on是事件监听和点击事件,可以缩写成@,reverseMessage是自定义的-->
+    </div>
+    <div id="app6">
+        <p>{{msg}}</p>
+        <input type="text" v-model = "msg">
+    </div>
+    <p v-html = "content" id="p"></p><!--改变P里的内容必须用v-html-->
+    <ol>
+        <he-llo></he-llo>
+    </ol>
+
+    <button v-bind:disabled="dis" id="btn">button</button>
+    <div id ="a">
+        <p v-bind:id = "a+b">变量id</p>
+    </div>
+</body>
+<script>
+    Vue.config.devtools = false;//开发提示关闭
+    Vue.config.productionTip = false;//生产提示关闭
+    var vue = new Vue({
+        el:"#p1",
+        data:{
+            msg:"你好 vue"
+        }
+    })
+    var app2 = new Vue({
+        el:"#app2",
+        data:{
+            msg:"页面加载于"+new Date().toLocaleString()
+        }
+    })
+    var app3 = new Vue({
+        el:"#app3",
+        data:{
+            seen:true
+        },
+        el:"#app4",      /*可以在创建一个vue里选择多个元素*/
+        data:{
+            todos:[
+                {text:"学习 JavaScript"},
+                {text:"学习 Vue"},
+                {text:"整个牛项目"}
+            ]
+        }
+    })
+    var app5 = new Vue({
+        el:"#app5",
+        data:{
+            msg:"我的圆珠笔"
+        },
+        methods:{     //定义的函数保存在这里
+            reverseMessage:function(){
+                this.msg=this.msg.split('').reverse().join('')
+                console.log(this.msg.split(""))
+            }
+        }
+
+    })
+    var app6 = new Vue({
+        el:"#app6",
+        data:{
+            msg:"holle .js"
+        }
+    })
+    var p = new Vue({
+        el:"#p",
+        data:{
+            content:"<h1>我是H1</h1>"
+        }
+    })
+    var a = new Vue({
+        el:"#a",
+        data:{
+            a:2,
+            b:5
+        }
+    })
+   
+</script>
+</html>
